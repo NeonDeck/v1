@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Destrexa | Skill Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="#home" aria-label="Destrexa home">
+          <span class="brand-mark">D</span>
+          <span>
+            <strong>Destrexa</strong>
+            <small>private skill rooms</small>
+          </span>
+        </a>
+
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="#home" data-route="home">Home</a>
+          <a href="#games" data-route="games">Games</a>
+          <a href="#coins" data-route="coins">Coins</a>
+          <a href="#profile" data-route="profile">Profile</a>
+        </nav>
+
+        <div class="account-strip">
+          <a class="coin-pill" href="#coins" aria-label="Coin balance">
+            <span class="coin-dot"></span>
+            <span id="coinBalance" data-coin-balance>0</span>
+          </a>
+          <button class="auth-button" type="button" data-auth-open>Login</button>
+          <a class="avatar-button" href="#profile" aria-label="Profile" hidden>AR</a>
+        </div>
+      </header>
+
+      <main id="app" class="page" tabindex="-1"></main>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#home" data-route="home">
+        <span class="nav-icon">H</span>
+        Home
+      </a>
+      <a href="#games" data-route="games">
+        <span class="nav-icon">G</span>
+        Games
+      </a>
+      <a href="#coins" data-route="coins">
+        <span class="nav-icon">C</span>
+        Coins
+      </a>
+      <a href="#profile" data-route="profile">
+        <span class="nav-icon">P</span>
+        Profile
+      </a>
+    </nav>
+
+    <div class="auth-modal" id="authModal" aria-hidden="true">
+      <div class="auth-backdrop" data-auth-close></div>
+      <section class="auth-panel" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+        <button class="auth-close" type="button" data-auth-close aria-label="Close login">X</button>
+        <div class="auth-brand">
+          <span class="brand-mark">D</span>
+          <div>
+            <p class="eyebrow">Destrexa access</p>
+            <h2 id="authTitle">Enter the private lobby</h2>
+          </div>
+        </div>
+        <p class="auth-copy">Login or create an account to prepare your wallet, profile, and skill-room access.</p>
+
+        <div class="auth-tabs" role="tablist" aria-label="Authentication mode">
+          <button class="auth-tab active" type="button" data-auth-mode="login">Login</button>
+          <button class="auth-tab" type="button" data-auth-mode="register">Register</button>
+        </div>
+
+        <form class="auth-form" id="authForm">
+          <label>
+            Email
+            <input id="authEmail" type="email" autocomplete="email" placeholder="player@destrexa.com" required />
+          </label>
+          <label>
+            Password
+            <input id="authPassword" type="password" autocomplete="current-password" placeholder="Minimum 6 characters" required />
+          </label>
+          <button class="primary-button auth-submit" type="submit">Login</button>
+          <p class="auth-message" id="authMessage" role="status"></p>
+        </form>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
