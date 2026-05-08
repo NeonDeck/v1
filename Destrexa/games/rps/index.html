@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cryplay RPS Arena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-shell">
+      <header class="game-header">
+        <a class="brand" href="../../index.html#games" aria-label="Back to Cryplay games">
+          <img class="brand-logo" src="../../img/logo.png" alt="" />
+          <span>
+            <strong>RPS</strong>
+            <small>Cryplay</small>
+          </span>
+        </a>
+        <div class="top-status">
+          <span>Opponent</span>
+          <strong id="opponentStatus">Not matched</strong>
+          <p id="matchStatus">Choose a mode.</p>
+        </div>
+        <div class="player-strip">
+          <span id="playerName">Checking session</span>
+          <span class="coin-pill"><span class="coin-dot"></span><span id="coinBalance">0</span></span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-panel">
+          <div>
+            <p class="eyebrow">Live arena</p>
+            <h1>Rock Paper Scissors</h1>
+          </div>
+          <p>5 rounds. 10 seconds. Simultaneous reveal. Sudden death on tie.</p>
+        </section>
+
+        <section id="homeScreen" class="screen active">
+          <div class="section-title">
+            <h2>Game home</h2>
+            <p>Pick a table type. Coin matches check your Supabase balance before matchmaking.</p>
+          </div>
+          <div class="menu-grid">
+            <button class="menu-card" data-view="ai">
+              <span>01</span>
+              <strong>Play vs AI</strong>
+              <p>Free or coin match against random-only AI.</p>
+            </button>
+            <button class="menu-card" data-view="quick">
+              <span>02</span>
+              <strong>1v1 Quick Match</strong>
+              <p>Find a live player in the same coin tier.</p>
+            </button>
+            <button class="menu-card" data-view="create">
+              <span>03</span>
+              <strong>Create Room</strong>
+              <p>Open a public room that quick match players can join.</p>
+            </button>
+            <button class="menu-card" data-view="leaderboard">
+              <span>04</span>
+              <strong>Leaderboard</strong>
+              <p>Local preview for future validated match history.</p>
+            </button>
+            <button class="menu-card" data-view="settings">
+              <span>05</span>
+              <strong>Settings</strong>
+              <p>Audio, table pace, and display preferences.</p>
+            </button>
+            <button class="menu-card" data-view="profile">
+              <span>06</span>
+              <strong>User Profile</strong>
+              <p>Current session and available balance.</p>
+            </button>
+          </div>
+        </section>
+
+        <section id="setupScreen" class="screen">
+          <div class="section-title">
+            <h2 id="setupTitle">Setup</h2>
+            <p id="setupCopy">Choose the coin tier for this table.</p>
+          </div>
+          <div class="tier-grid" id="tierGrid"></div>
+          <div class="action-row">
+            <button class="secondary-button" data-view="home">Back</button>
+            <button class="primary-button" id="startModeButton">Continue</button>
+          </div>
+        </section>
+
+        <section id="searchScreen" class="screen">
+          <div class="search-panel">
+            <p class="eyebrow">Matchmaking</p>
+            <h2 id="searchTitle">Finding opponent</h2>
+            <div class="search-timer"><span id="searchCountdown">30</span>s</div>
+            <p id="searchCopy">Searching live public rooms and players in this tier.</p>
+            <div class="action-row">
+              <button class="secondary-button" id="cancelSearchButton">Cancel</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="matchScreen" class="screen">
+          <div class="match-top">
+            <div class="score-card">
+              <span id="youLabel">You</span>
+              <strong id="youScore">0</strong>
+            </div>
+            <div class="round-card">
+              <span id="roundLabel">Round 1 / 5</span>
+              <strong id="roundTimer">10</strong>
+              <p id="roundStatus">Choose your card.</p>
+            </div>
+            <div class="score-card">
+              <span id="opponentLabel">Opponent</span>
+              <strong id="opponentScore">0</strong>
+            </div>
+          </div>
+
+          <div class="choice-grid" id="choiceGrid">
+            <button class="choice-card" data-choice="rock">
+              <img src="img/rock.png" alt="Rock" />
+              <span>Rock</span>
+            </button>
+            <button class="choice-card" data-choice="paper">
+              <img src="img/paper.png" alt="Paper" />
+              <span>Paper</span>
+            </button>
+            <button class="choice-card" data-choice="scissors">
+              <img src="img/scissors.png" alt="Scissors" />
+              <span>Scissors</span>
+            </button>
+          </div>
+
+          <div class="reveal-grid">
+            <div>
+              <span>Your choice</span>
+              <strong id="yourReveal">Locked</strong>
+            </div>
+            <div>
+              <span>Opponent choice</span>
+              <strong id="opponentReveal">Waiting</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="finalScreen" class="screen">
+          <div class="final-card">
+            <p class="eyebrow">Final result</p>
+            <h2 id="finalTitle">Match complete</h2>
+            <p id="finalCopy">Rewards will be validated later by Supabase backend logic.</p>
+            <div class="action-row">
+              <button class="primary-button" data-view="home">Play again</button>
+              <a class="secondary-button" href="../../index.html#coins">Coins page</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
